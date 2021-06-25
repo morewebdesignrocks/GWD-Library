@@ -1,5 +1,5 @@
-// Split words into individual letter spans
-function splitLetters(e) {
+ // Split words into individual letter spans
+ function splitLetters(e) {
     // Get elements
     let element = document.getElementById(e);
     // Convert string of text into individual letter spans
@@ -7,10 +7,10 @@ function splitLetters(e) {
   }
   // Determine direction
   function animationDirection(d) {
-    console.log(d);
+    // Set coordinates variables
     let x;
     let y;
-    
+    // Assing values to coordinates
     switch (d) {
       case "up":
         x = "0px";
@@ -21,11 +21,11 @@ function splitLetters(e) {
         y = "-1000%";
         break;
       case "right":
-        x = "-1000%";
+        x = "-10000%";
         y = "0px";
         break;
       case "left":
-        x = "1000%";
+        x = "10000%";
         y = "0px";
     }
     return [x, y];
@@ -34,7 +34,6 @@ function splitLetters(e) {
   function bounceLetters(id, direction, duration, delay, stag) {
     splitLetters(id);
     let dir = animationDirection(direction);
-    console.log(dir[0]);
     // Get letters spans
     let targetElement = "#" + id + " .letter";
     let elementLetters = document.querySelectorAll(targetElement);
@@ -42,6 +41,22 @@ function splitLetters(e) {
     gsap.from(elementLetters, duration, {
       x: dir[0],
       y: dir[1],
+      delay,
+      stagger: stag,
+      ease: Bounce.easeOut
+    });
+  }
+  // BOUNCE LETTERS
+  function bounceLetters2(id, yDir, xDir, duration, delay, stag) {
+    splitLetters(id);
+    //let dir = animationDirection(direction);
+    // Get letters spans
+    let targetElement = "#" + id + " .letter";
+    let elementLetters = document.querySelectorAll(targetElement);
+    // Run animation
+    gsap.from(elementLetters, duration, {
+      x: xDir,
+      y: yDir,
       delay,
       stagger: stag,
       ease: Bounce.easeOut
@@ -66,5 +81,5 @@ function splitLetters(e) {
   }
   // Request animation here, include element Id, direction, duration, delay and stagger) 
   // Example: bounceLetters("id", "up", 0.5, 0, 0.3);
-  bounceLetters("main-text", "left", 1, 0, 0.3);
-  //dropLetters("sub-text", .8, 0.1, 0.3);
+  //bounceLetters("main-text", "down", 0.8, 0, 0.1);
+  bounceLetters2("main-text", "-50px", "0", 0.8, 0, 0.1);
